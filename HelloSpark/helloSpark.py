@@ -1,16 +1,22 @@
 from pyspark.sql import *
 from lib.logger import Log4j
+from lib.utils import *
 
 if __name__ == "__main__":
-    spark = SparkSession.builder \
-             .appName("Hello Spark") \
-             .master("local[3]") \
-             .getOrCreate()
+    conf = get_spark_app_config()
 
+    spark = SparkSession \
+        .builder \
+        .appName("HelloSpark") \
+        .master("local[2]") \
+        .getOrCreate()
 
     logger = Log4j(spark)
-    logger.info("Starting  HelloSpark")
 
+    logger.info("Starting  HelloSpark")
+    # Your processing code
+    conf_out = spark.sparkContext.getConf()
+    logger.info(conf_out.toDebugString())
     logger.info("Finished  HelloSpark")
     spark.stop()
 
