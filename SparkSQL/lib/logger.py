@@ -1,12 +1,12 @@
 class Log4j:
-    def __init__(self, spark):
+    def __init__(self , spark):
         log4j = spark._jvm.org.apache.log4j
-
-        root_class = "guru.learningjournal.spark.examples"
+        root_class = "local.sparkapplication.spark.project"
         conf = spark.sparkContext.getConf()
         app_name = conf.get("spark.app.name")
 
-        self.logger = log4j.LogManager.getLogger(root_class + "." + app_name)
+        # the idea is to use your organization name as the root class and suffix it with the application name.
+        self.logger = log4j.LogManager.getLogger(root_class  + "." + app_name  )
 
     def warn(self, message):
         self.logger.warn(message)
